@@ -1,4 +1,4 @@
-module blany/servelink
+module github.com/floriantranier/servelink
 
 go 1.25.0
 

@@ -1,11 +1,12 @@
 package main
 
 import (
-	"blany/servelink/middlewares/auth"
-	"blany/servelink/services"
 	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/floriantranier/servelink/middlewares/auth"
+	"github.com/floriantranier/servelink/services"
 
 	"github.com/danielkov/gin-helmet/ginhelmet"
 	"github.com/gin-gonic/gin"
