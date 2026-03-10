@@ -1,3 +1,4 @@
 mnt/*
 *.exe
 .gitignore
+.github
