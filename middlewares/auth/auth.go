@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CheckSecretKey is a middleware that validates the "x-api-key" header against the environment's secret key.
 func CheckSecretKey() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		apiKeyHeader := c.GetHeader("x-api-key")

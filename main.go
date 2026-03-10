@@ -5,11 +5,13 @@ import (
 	"blany/servelink/services"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/danielkov/gin-helmet/ginhelmet"
 	"github.com/gin-gonic/gin"
 )
 
+// main initializes the HTTP server, configures middleware, and defines routes for file and folder operations.
 func main() {
 	r := gin.Default()
 
@@ -17,7 +19,12 @@ func main() {
 	r.Use(auth.CheckSecretKey())
 
 	r.GET("/dir", func(c *gin.Context) {
-		folder := services.ReadFolder()
+		maxIntrospectionLevel, err := strconv.Atoi(c.DefaultQuery("introspectionLevel", "0"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid introspection level"})
+			return
+		}
+		folder := services.ReadFolderV2("", nil, 0, maxIntrospectionLevel)
 
 		c.JSON(http.StatusOK, folder)
 	})
