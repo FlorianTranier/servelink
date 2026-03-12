@@ -37,7 +37,7 @@ func main() {
 
 		//contentType := "Content-Type: text/plain"
 
-		c.File("mnt/" + c.Param("path"))
+		c.File(c.Param("path"))
 	})
 
 	err := r.Run()
