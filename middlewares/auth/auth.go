@@ -10,6 +10,9 @@ import (
 func CheckSecretKey() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		apiKeyHeader := c.GetHeader("x-api-key")
+		if apiKeyHeader == "" {
+			apiKeyHeader, _ = c.GetQuery("secretKey")
+		}
 		secretKey := os.Getenv("SUPER_SECRET_KEY")
 
 		if len(apiKeyHeader) > 0 && len(secretKey) > 0 && apiKeyHeader == secretKey {
