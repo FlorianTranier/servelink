@@ -4,7 +4,6 @@ import (
 	"io/fs"
 	"log"
 	"os"
-	"path/filepath"
 	"strconv"
 	"sync"
 )
@@ -58,7 +57,7 @@ func ReadFolderV2(baseDir string, parentNode *Node, introspectionLevel int, maxI
 
 		node := &Node{
 			Name:     entry.Name(),
-			Path:     filepath.ToSlash(baseDir + "/" + entry.Name()),
+			Path:     baseDir + "/" + entry.Name(),
 			IsDir:    entry.IsDir(),
 			Metadata: info,
 			Children: make(map[string]*Node),

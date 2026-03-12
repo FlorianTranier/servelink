@@ -25,7 +25,10 @@ func main() {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid introspection level"})
 			return
 		}
-		folder := services.ReadFolderV2("", nil, 0, maxIntrospectionLevel)
+
+		startingPath := c.DefaultQuery("startingPath", "")
+
+		folder := services.ReadFolderV2(startingPath, nil, 0, maxIntrospectionLevel)
 
 		c.JSON(http.StatusOK, folder)
 	})
