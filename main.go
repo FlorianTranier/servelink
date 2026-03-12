@@ -33,11 +33,17 @@ func main() {
 		c.JSON(http.StatusOK, folder)
 	})
 
-	r.GET("/file/:path", func(c *gin.Context) {
+	r.GET("/file", func(c *gin.Context) {
+
+		filePath := c.Query("path")
+		if filePath == "" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Path parameter is required"})
+			return
+		}
 
 		//contentType := "Content-Type: text/plain"
 
-		c.File(c.Param("path"))
+		c.File(filePath)
 	})
 
 	err := r.Run()
