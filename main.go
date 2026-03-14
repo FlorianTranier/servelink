@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/floriantranier/servelink/middlewares/auth"
 	"github.com/floriantranier/servelink/services"
@@ -44,6 +45,16 @@ func main() {
 		//contentType := "Content-Type: text/plain"
 
 		c.File(filePath)
+	})
+
+	r.GET("/file/download", func(c *gin.Context) {
+		filePath := c.Query("path")
+		if filePath == "" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Path parameter is required"})
+			return
+		}
+
+		c.FileAttachment(filePath, strings.Split(filePath, "/")[len(strings.Split(filePath, "/"))-1])
 	})
 
 	err := r.Run()
