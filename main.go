@@ -9,7 +9,6 @@ import (
 	"github.com/floriantranier/servelink/middlewares/auth"
 	"github.com/floriantranier/servelink/services"
 
-	"github.com/danielkov/gin-helmet/ginhelmet"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,7 +16,7 @@ import (
 func main() {
 	r := gin.Default()
 
-	r.Use(ginhelmet.Default())
+	//r.Use(ginhelmet.Default())
 	r.Use(auth.CheckSecretKey())
 
 	r.GET("/dir", func(c *gin.Context) {
@@ -41,8 +40,6 @@ func main() {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Path parameter is required"})
 			return
 		}
-
-		//contentType := "Content-Type: text/plain"
 
 		c.File(filePath)
 	})
